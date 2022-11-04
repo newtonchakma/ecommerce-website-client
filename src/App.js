@@ -1,10 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './Component/SharePage/Navbar/Navbar';
+
+import { Route, Routes } from 'react-router-dom';
+import Home from './Component/HomePage/Banner/Home';
 
 function App() {
   return (
-    <div className="App">
-     <button class="btn btn-primary text-5xl mt-10 font-bold bg-slate-600">Button</button>
+    <div className="">
+      <Navbar/>
+    <Routes>
+        <Route path="/" element={<Home />} />
+        
+      </Routes>
     </div>
   );
 }
