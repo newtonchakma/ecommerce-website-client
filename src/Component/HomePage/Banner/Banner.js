@@ -4,7 +4,7 @@ import { BeakerIcon, ArrowRightIcon } from '@heroicons/react/24/solid'
 
 const Banner = () => {
     return (
-        <section id='banner' className="text-gray-600 body-font h-[500px]">
+        <section id='banner' className="text-gray-600 body-font h-[650px]">
         <div className=" mx-auto flex items-center 
          h-full ">
           <div className="flex flex-col pl-8 font-serif pt-5 mt-5 rounded-lg  mb-10 md:mb-0 md:w-[800px] mx-8 ">

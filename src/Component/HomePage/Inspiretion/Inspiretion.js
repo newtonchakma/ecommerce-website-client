@@ -4,11 +4,12 @@ import './Inspiretion.css'
 const Inspiretion = () => {
     return (
         <div className='flex bg-slate-200 justify-between font-serif'>
+            <div className="md:grid-cols-2 grid grid-cols-1">
             <div className="left-side my-20 ml-20">
                 <h5 className='text-2xl'>NEWS AND INSPIRATION</h5>
                 <h2 className='text-6xl font bolder my-5'>NEW ARRIVALS</h2>
-                <div className='divider'>
-                    <div className="inner-divider"></div>
+                <div className='dik mb-2'>
+                    <div className="inner"></div>
                 </div>
                 <div className=" flex">
                     <div className="timer">
@@ -38,6 +39,7 @@ const Inspiretion = () => {
             <div className="right-side">
                 <img src={chair} alt="" />
             </div>
+        </div>
         </div>
     );
 };

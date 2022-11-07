@@ -1,9 +1,15 @@
 import React from 'react';
+import {  useNavigate } from 'react-router-dom';
 import useProducts from '../../../Hooks/useProducts';
 import Product from './Product/Product';
 
 const Products = () => {
     const[products, setProducts]=useProducts();
+    const navigate = useNavigate();
+    const productDetails=(id)=>{
+         navigate(`/productDetail/${id}`)
+        console.log(id);
+    }
   
     return (
         <div className='py-20 font-serif'>
@@ -19,6 +25,7 @@ const Products = () => {
                     products.map(product => <Product
                         key={product.id}
                         product={product}
+                        productDetails={productDetails}
                         ></Product>)
                     }
                 </div>
