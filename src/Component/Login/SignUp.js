@@ -1,16 +1,37 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loading from '../SharePage/Navbar/Footer/Loading';
+
 
 const SignUp = () => {
    
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const navigate =useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm();
+      let signInError;
+      if( loading || gLoading){
+        return <Loading></Loading>
+    }
+      
+    if(gUser || user){
+        console.log(gUser,user);
+        navigate('/home');
+    }
     const onSubmit = data => {
         console.log(data);
-        // signInWithEmailAndPassword(data.email, data.password)
+        createUserWithEmailAndPassword(data.email, data.password)
+    }
+    if(error || gError){
+        signInError= <p className='text-red-500'><small>{error?.message || gError?.message }</small></p>
     }
     return (
         <div className='flex justify-center items-center h-screen my-5 font-serif'>
@@ -91,7 +112,7 @@ const SignUp = () => {
              </label>
                
                   </div>
-         
+                  {signInError}
             <input className='btn w-full max-w-xs text-white btn-warning' type="submit" value="Login" />
              </form>
              <p><small> Have an account? <Link className='text-primary' to="/login">Please login </Link></small></p>

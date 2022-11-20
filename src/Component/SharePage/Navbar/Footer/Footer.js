@@ -31,8 +31,8 @@ const Footer = () => {
                 
             </div>
             <hr className='text-white mt-6'/>
-            <div className=" py-6">
-                <h2 className='text-3xl text-gray-200'>© 2020-2022 powered by Flatlogic</h2>
+            <div className=" py-6 text-center">
+                <h2 className='text-xl text-gray-200'>© 2020-2022 powered by Flatlogic</h2>
             </div>
         </div>
     );

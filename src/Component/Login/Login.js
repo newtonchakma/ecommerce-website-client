@@ -2,15 +2,38 @@ import React from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link,  useLocation,  useNavigate } from 'react-router-dom';
+import Loading from '../SharePage/Navbar/Footer/Loading';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
+      let signInError;
+      const navigate =useNavigate();
+      const location = useLocation();
+      let from = location.state?.from?.pathname || '/';
+      if( loading || gLoading){
+        return <Loading></Loading>
+    }
+      if(gUser || user){
+          
+        navigate(from, {replace:true});
+        console.log(gUser,user);
+    }
     const onSubmit = data => {
         console.log(data);
-        // signInWithEmailAndPassword(data.email, data.password)
+         signInWithEmailAndPassword(data.email, data.password)
     }
+    if(error || gError){
+        signInError= <p className='text-red-500'><small>{error?.message || gError?.message }</small></p>
+    }
+  
     return (
         <div className='flex justify-center items-center h-screen my-5 font-serif'>
         <div className="card w-96 bg-base-100 shadow-xl">
@@ -72,7 +95,7 @@ const Login = () => {
              </label>
                
                   </div>
-         
+                {signInError}
             <input className='btn w-full max-w-xs text-white btn-warning' type="submit" value="Login" />
              </form>
              <p><small>Don't have an account? <Link className='text-primary' to="/signup">Please Sign up</Link></small></p>
